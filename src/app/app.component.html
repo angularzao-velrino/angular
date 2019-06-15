@@ -1,4 +1,6 @@
 <div class="container">
+  <button mat-raised-button color="primary" class="btn-space" (click)="insert()">Add</button>
+  <a *ngFor="let item of items"> {{item.name}}</a>
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" width="100%">
     <!-- Text Column -->
     <ng-container *ngFor="let test of displayedColumns" matColumnDef="{{test}}">

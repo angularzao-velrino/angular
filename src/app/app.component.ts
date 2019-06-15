@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { AngularFireDatabase } from '@angular/fire/database';
+import { Observable } from 'rxjs';
 
 export interface Example {
   name: string;
@@ -6,9 +8,9 @@ export interface Example {
   value: string;
 }
 
-const ELEMENT_DATA: Example[] = [
+const ELEMENT_DATA = [
   { position: 1, name: 'Hydrogen', value: 'H' },
-  { position: 2, name: 'Helium',  value: 'He' },
+  { position: 2, name: 'Helium', value: 'He' },
   { position: 3, name: 'Lithium', value: 'Li' },
   { position: 4, name: 'Beryllium', value: 'Be' },
   { position: 5, name: 'Boron', value: 'B' },
@@ -24,8 +26,18 @@ const ELEMENT_DATA: Example[] = [
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
+
 export class AppComponent {
+  items: Observable<any[]>;
   title = 'loremipsum';
-  displayedColumns: string[] = ['position', 'name', 'value'];
-  dataSource = ELEMENT_DATA;
+  displayedColumns: string[] = ['name','value'];
+  dataSource: any;
+
+  constructor(private db: AngularFireDatabase) {
+    this.dataSource = this.db.list('item').valueChanges();
+  }
+
+  insert() {
+    this.db.list('item').push({ name: 'new name!', value: 'loremipsum' });
+  }
 }
