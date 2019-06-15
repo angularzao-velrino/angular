@@ -9,10 +9,16 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { environment } from '../environments/environment';
 import { MatButtonModule } from '@angular/material/button';
+import { ModalproductComponent } from './modalproduct/modalproduct.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { FormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ModalproductComponent
   ],
   imports: [
     BrowserModule,
@@ -21,7 +27,14 @@ import { MatButtonModule } from '@angular/material/button';
     MatTableModule,
     MatButtonModule,
     AngularFireModule.initializeApp(environment.firebase, 'shazam'),
-    AngularFireDatabaseModule
+    AngularFireDatabaseModule,
+    MatDialogModule,
+    FormsModule,
+    MatFormFieldModule,
+    MatInputModule
+  ],
+  entryComponents: [
+    ModalproductComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

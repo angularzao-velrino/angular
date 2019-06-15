@@ -1,0 +1,11 @@
+<h1 mat-dialog-title>Criar</h1>
+<div mat-dialog-content>
+  <p>Qual nome do produto ?</p>
+  <mat-form-field>
+    <input matInput [(ngModel)]="modalData.name">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cancelar</button>
+  <button mat-button [mat-dialog-close]="modalData" cdkFocusInitial>Criar</button>
+</div>

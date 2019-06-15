@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { Observable } from 'rxjs';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { ModalproductComponent } from './modalproduct/modalproduct.component';
 
 export interface Example {
   name: string;
@@ -30,14 +32,24 @@ const ELEMENT_DATA = [
 export class AppComponent {
   items: Observable<any[]>;
   title = 'loremipsum';
-  displayedColumns: string[] = ['name','value'];
+  displayedColumns: string[] = ['name', 'value'];
   dataSource: any;
 
-  constructor(private db: AngularFireDatabase) {
+  constructor(private db: AngularFireDatabase,
+    private dialog: MatDialog) {
     this.dataSource = this.db.list('item').valueChanges();
   }
 
-  insert() {
-    this.db.list('item').push({ name: 'new name!', value: 'loremipsum' });
+  insert(data = null): void {
+    const dialogRef = this.dialog.open(ModalproductComponent, {
+      width: '500px',
+      data
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result) {
+        this.db.list('item').push(result);
+      }
+    });
   }
 }
