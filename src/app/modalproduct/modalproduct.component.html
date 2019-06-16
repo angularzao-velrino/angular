@@ -1,11 +1,15 @@
-<h1 mat-dialog-title>Criar</h1>
+<h1 mat-dialog-title>{{title}}</h1>
 <div mat-dialog-content>
   <p>Qual nome do produto ?</p>
   <mat-form-field>
     <input matInput [(ngModel)]="modalData.name">
   </mat-form-field>
+  <p>Qual a descrição do produto ?</p>
+  <mat-form-field>
+    <input matInput [(ngModel)]="modalData.value">
+  </mat-form-field>
 </div>
 <div mat-dialog-actions>
   <button mat-button (click)="onNoClick()">Cancelar</button>
-  <button mat-button [mat-dialog-close]="modalData" cdkFocusInitial>Criar</button>
+  <button mat-button [mat-dialog-close]="modalData" cdkFocusInitial>{{title}}</button>
 </div>

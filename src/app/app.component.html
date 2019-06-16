@@ -1,11 +1,22 @@
 <div class="container">
   <button mat-raised-button color="primary" class="btn-space" (click)="insert()">Add</button>
-  <a *ngFor="let item of items"> {{item.name}}</a>
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" width="100%">
-    <!-- Text Column -->
-    <ng-container *ngFor="let test of displayedColumns" matColumnDef="{{test}}">
-      <th mat-header-cell *matHeaderCellDef> {{test}} </th>
-      <td mat-cell *matCellDef="let element"> {{element[test]}}</td>
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef> Produto </th>
+      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="value">
+      <th mat-header-cell *matHeaderCellDef> Descrição </th>
+      <td mat-cell *matCellDef="let element"> {{element.value}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="functions">
+      <th mat-header-cell *matHeaderCellDef> Ações. </th>
+      <td mat-cell *matCellDef="let element">
+        <button (click)="edit(element)" mat-raised-button color="primary">Edit</button>
+        <button (click)="delete(element.key)" mat-raised-button color="warn">Delete</button>
+      </td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

@@ -3,6 +3,7 @@ import { AngularFireDatabase } from '@angular/fire/database';
 import { Observable } from 'rxjs';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ModalproductComponent } from './modalproduct/modalproduct.component';
+import { map } from 'rxjs/operators';
 
 export interface Example {
   name: string;
@@ -32,23 +33,45 @@ const ELEMENT_DATA = [
 export class AppComponent {
   items: Observable<any[]>;
   title = 'loremipsum';
-  displayedColumns: string[] = ['name', 'value'];
+  displayedColumns: string[] = ['name', 'value', 'functions'];
   dataSource: any;
 
   constructor(private db: AngularFireDatabase,
     private dialog: MatDialog) {
-    this.dataSource = this.db.list('item').valueChanges();
+    this.dataSource = this.db.list('item').snapshotChanges()
+      .pipe(map(items => {
+        return items.map(item => {
+          return Object.assign({ key: item.payload.key }, item.payload.val())
+        });
+      }));
   }
 
   insert(data = null): void {
     const dialogRef = this.dialog.open(ModalproductComponent, {
       width: '500px',
-      data
+      data: { ...data, type: 'create' }
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if(result) {
+      if (result) {
         this.db.list('item').push(result);
+      }
+    });
+  }
+
+  delete(key) {
+    this.db.list('item').remove(key)
+  }
+
+  edit(data = null) {
+    const dialogRef = this.dialog.open(ModalproductComponent, {
+      width: '500px',
+      data: { ...data, type: 'update' }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.db.list('item').update(result.key, result)
       }
     });
   }
