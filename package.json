@@ -7,7 +7,8 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "deploy": "ng build --prod && npx ngh --repo=https://github.com/angularzao-velrino/angularzao-velrino.github.io.git --name=velrino --email=denismagalhaesvelrino@gmail.com  --branch=master --dir=dist/loremipsum"
   },
   "private": true,
   "dependencies": {
@@ -33,9 +34,10 @@
     "@angular/cli": "~8.0.2",
     "@angular/compiler-cli": "~8.0.0",
     "@angular/language-service": "~8.0.0",
-    "@types/node": "~8.9.4",
     "@types/jasmine": "~3.3.8",
     "@types/jasminewd2": "~2.0.3",
+    "@types/node": "~8.9.4",
+    "angular-cli-ghpages": "^0.5.3",
     "codelyzer": "^5.0.0",
     "jasmine-core": "~3.4.0",
     "jasmine-spec-reporter": "~4.2.1",

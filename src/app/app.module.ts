@@ -26,7 +26,15 @@ import { MatInputModule } from '@angular/material';
     BrowserAnimationsModule,
     MatTableModule,
     MatButtonModule,
-    AngularFireModule.initializeApp(environment.firebase, 'shazam'),
+    AngularFireModule.initializeApp({
+      apiKey: "AIzaSyCq1B5wqtWTyFKwH0JMxOxHPJnvq9QoN78",
+      authDomain: "loremipsum-e61d0.firebaseapp.com",
+      databaseURL: "https://loremipsum-e61d0.firebaseio.com",
+      projectId: "loremipsum-e61d0",
+      storageBucket: "",
+      messagingSenderId: "633581222928",
+      appId: "1:633581222928:web:3c44e68638861c86"
+    }, 'shazam'),
     AngularFireDatabaseModule,
     MatDialogModule,
     FormsModule,
